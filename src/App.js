@@ -128,7 +128,7 @@ export default function App() {
                       />
                     </React.Fragment>
                   );
-                } else if (shape === 'j') {
+                } else if (shape === 'h' || shape === 'i') {
                   startingPoints = calculateStartingP(
                     tempStartP,
                     off,
@@ -142,6 +142,25 @@ export default function App() {
                         direction={tempDir}
                       />
                       <HalfReverseCircle
+                        x={tempStartP.x + off.x}
+                        y={tempStartP.y + off.y}
+                      />
+                    </React.Fragment>
+                  );
+                } else if (shape === 'j') {
+                  startingPoints = calculateStartingP(
+                    tempStartP,
+                    off,
+                    direction
+                  );
+                  return (
+                    <React.Fragment key={`${g.distance}-${idx}`}>
+                      <PathComp
+                        startP={tempStartP}
+                        distance={g.distance}
+                        direction={tempDir}
+                      />
+                      <UTurn
                         x={tempStartP.x + off.x}
                         y={tempStartP.y + off.y}
                       />

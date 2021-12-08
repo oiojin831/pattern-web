@@ -13,11 +13,12 @@ import PathComp from './components/PathComp';
 import Tri from './components/Tri';
 import UTurn from './components/UTurn';
 import Map from './Map';
+const svgLib = require('save-svg-as-png');
 
 export default function App() {
   const [guide, setGuide] = useState();
   const [car, setCar] = useState(false);
-  let startingPoints = { x: 10, y: 10 };
+  let startingPoints = { x: 15, y: 15 };
   let direction = 'east';
   return (
     <div className="App">
@@ -31,7 +32,7 @@ export default function App() {
       </RenderAfterNavermapsLoaded>
       {guide ? (
         <div style={{ width: '100%', height: '40vh' }}>
-          <svg viewBox={`0 0 100 100`}>
+          <svg id="pattern" viewBox={`0 0 100 100`}>
             <Circle car={car} x={startingPoints.x - 1} y={startingPoints.y} />
             {guide
               .map((g) => ({
@@ -128,6 +129,7 @@ export default function App() {
                         direction={tempDir}
                       />
                       <Straight
+                        car={car}
                         x={tempStartP.x + off.x}
                         y={tempStartP.y + off.y}
                       />
@@ -182,7 +184,12 @@ export default function App() {
                     direction
                   );
                   return (
-                    <Straight key={`${g.distance}-${idx}`} x={idx + 2} y={1} />
+                    <Straight
+                      car={car}
+                      key={`${g.distance}-${idx}`}
+                      x={idx + 2}
+                      y={1}
+                    />
                   );
                 }
               })}
@@ -190,6 +197,17 @@ export default function App() {
           </svg>
         </div>
       ) : null}
+      <button
+        onClick={() =>
+          svgLib.saveSvgAsPng(
+            document.getElementById('pattern'),
+            'pattern.png',
+            { scale: 10 }
+          )
+        }
+      >
+        save to png{' '}
+      </button>
     </div>
   );
 }

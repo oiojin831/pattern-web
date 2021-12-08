@@ -1,5 +1,5 @@
 import React from 'react';
-const Straight = ({ x, y, transform }) => {
+const Straight = ({ x, y, transform, car }) => {
   if (transform) {
     return (
       <React.Fragment>
@@ -12,7 +12,7 @@ const Straight = ({ x, y, transform }) => {
               } ${4 * y} L${0.34375 + 4 * (x - 1) + loc * 1.19625} ${4 * y} L${
                 0.34375 + 4 * (x - 1) + loc * 1.19625
               } ${4 * (y - 1)}`}
-              fill="#835b35"
+              fill={car ? '#B2B1B0' : `#835b35`}
             />
           );
         })}
@@ -30,7 +30,7 @@ const Straight = ({ x, y, transform }) => {
             } L${4 * x} ${0.34375 + 4 * (y - 1) + loc * 1.19625} L${
               4 * (x - 1)
             } ${0.34375 + 4 * (y - 1) + loc * 1.19625}`}
-            fill="#835b35"
+            fill={car ? '#B2B1B0' : `#835b35`}
           />
         );
       })}

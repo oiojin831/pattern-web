@@ -16,9 +16,9 @@ import Map from './Map';
 
 export default function App() {
   const [guide, setGuide] = useState();
+  const [car, setCar] = useState(false);
   let startingPoints = { x: 10, y: 10 };
   let direction = 'east';
-  console.log('guide', guide);
   return (
     <div className="App">
       <RenderAfterNavermapsLoaded
@@ -27,12 +27,12 @@ export default function App() {
         loading={<p>Maps Loading...</p>}
         submodules={['geocoder']}
       >
-        <Map setGuide={setGuide} />
+        <Map car={car} setCar={setCar} setGuide={setGuide} />
       </RenderAfterNavermapsLoaded>
       {guide ? (
         <div style={{ width: '100%', height: '40vh' }}>
           <svg viewBox={`0 0 100 100`}>
-            <Circle x={startingPoints.x - 1} y={startingPoints.y} />
+            <Circle car={car} x={startingPoints.x - 1} y={startingPoints.y} />
             {guide
               .map((g) => ({
                 type: g.type,
@@ -53,11 +53,13 @@ export default function App() {
                   return (
                     <React.Fragment key={`${g.distance}-${idx}`}>
                       <PathComp
+                        car={car}
                         startP={tempStartP}
                         distance={g.distance}
                         direction={tempDir}
                       />
                       <Circle
+                        car={car}
                         x={tempStartP.x + off.x}
                         y={tempStartP.y + off.y}
                       />
@@ -73,6 +75,7 @@ export default function App() {
                   return (
                     <React.Fragment key={`${g.distance}-${idx}`}>
                       <PathComp
+                        car={car}
                         startP={tempStartP}
                         distance={g.distance}
                         direction={tempDir}
@@ -96,6 +99,7 @@ export default function App() {
                   return (
                     <React.Fragment key={`${g.distance}-${idx}`}>
                       <PathComp
+                        car={car}
                         startP={tempStartP}
                         distance={g.distance}
                         direction={tempDir}
@@ -118,6 +122,7 @@ export default function App() {
                   return (
                     <React.Fragment key={`${g.distance}-${idx}`}>
                       <PathComp
+                        car={car}
                         startP={tempStartP}
                         distance={g.distance}
                         direction={tempDir}
@@ -137,11 +142,13 @@ export default function App() {
                   return (
                     <React.Fragment key={`${g.distance}-${idx}`}>
                       <PathComp
+                        car={car}
                         startP={tempStartP}
                         distance={g.distance}
                         direction={tempDir}
                       />
                       <HalfReverseCircle
+                        car={car}
                         x={tempStartP.x + off.x}
                         y={tempStartP.y + off.y}
                       />
@@ -156,11 +163,13 @@ export default function App() {
                   return (
                     <React.Fragment key={`${g.distance}-${idx}`}>
                       <PathComp
+                        car={car}
                         startP={tempStartP}
                         distance={g.distance}
                         direction={tempDir}
                       />
                       <UTurn
+                        car={car}
                         x={tempStartP.x + off.x}
                         y={tempStartP.y + off.y}
                       />
@@ -177,7 +186,7 @@ export default function App() {
                   );
                 }
               })}
-            <Circle x={startingPoints.x} y={startingPoints.y} />
+            <Circle car={car} x={startingPoints.x} y={startingPoints.y} />
           </svg>
         </div>
       ) : null}

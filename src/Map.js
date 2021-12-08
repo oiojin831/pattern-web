@@ -1,7 +1,7 @@
 import { NaverMap, Marker } from 'react-naver-maps';
 import fromTM128ToLatLng from './utils';
 import { useEffect, useState } from 'react';
-const Map = ({ setGuide }) => {
+const Map = ({ setGuide, car, setCar }) => {
   const navermaps = window.naver.maps;
   const [latLong, setGeometricData] = useState(null);
 
@@ -47,6 +47,16 @@ const Map = ({ setGuide }) => {
         <input placeholder="goal" />
         <button type="submit"> search</button>
       </form>
+      <button
+        style={
+          car
+            ? { background: '#7B7B7B', color: 'white' }
+            : { background: '#df5444', color: 'white' }
+        }
+        onClick={() => setCar((c) => !c)}
+      >
+        {car ? '자동차' : '대중교통'}
+      </button>
       <NaverMap
         mapDivId={'maps-getting-started-uncontrolled'} // default: react-naver-map
         style={{
